@@ -112,7 +112,7 @@ class NodeGraphMenu(object):
         self.qmenu.addMenu(menu)
         return NodeGraphMenu(self._graph, menu)
 
-    def add_command(self, name, func=None, shortcut=None):
+    def add_command(self, name, func=None, shortcut=None, icon=None):
         """
         Adds a command to the menu.
 
@@ -132,6 +132,8 @@ class NodeGraphMenu(object):
             action.setShortcut(shortcut)
         if func:
             action.executed.connect(func)
+        if icon:
+            action.setIcon(icon)
         qaction = self.qmenu.addAction(action)
         return NodeGraphCommand(self._graph, qaction)
 
@@ -161,7 +163,7 @@ class NodesMenu(NodeGraphMenu):
         nodes_menu = node_graph.get_context_menu('nodes')
     """
 
-    def add_command(self, name, func=None, node_type=None, node_class=None):
+    def add_command(self, name, func=None, node_type=None, node_class=None, icon=None):
         """
         Re-implemented to add a command to the specified node type menu.
 
@@ -198,6 +200,8 @@ class NodesMenu(NodeGraphMenu):
             action.setShortcutVisibleInContextMenu(True)
         if func:
             action.executed.connect(func)
+        if icon:
+            action.setIcon(icon)
 
         if node_class:
             node_menus = self.qmenu.get_menus(node_class)
