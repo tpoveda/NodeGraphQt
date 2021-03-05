@@ -45,6 +45,9 @@ class NodeViewer(QtWidgets.QGraphicsView):
     node_double_clicked = QtCore.Signal(str)
     data_dropped = QtCore.Signal(QtCore.QMimeData, QtCore.QPoint)
 
+    PIPE_CLASS = Pipe
+    LIVE_PIPE_CLASS = LivePipe
+
     def __init__(self, parent=None):
         super(NodeViewer, self).__init__(parent)
 
@@ -79,7 +82,7 @@ class NodeViewer(QtWidgets.QGraphicsView):
         )
         self._rubber_band.isActive = False
 
-        self._LIVE_PIPE = LivePipe()
+        self._LIVE_PIPE = self.LIVE_PIPE_CLASS()
         self._LIVE_PIPE.setVisible(False)
         self.scene().addItem(self._LIVE_PIPE)
 
@@ -745,7 +748,7 @@ class NodeViewer(QtWidgets.QGraphicsView):
         """
         if not self.editable:
             return
-        pipe = Pipe()
+        pipe = self.PIPE_CLASS()
         self.scene().addItem(pipe)
         pipe.set_connections(start_port, end_port)
         pipe.draw_path(pipe.input_port, pipe.output_port)
