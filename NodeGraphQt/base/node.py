@@ -524,13 +524,15 @@ class BaseNode(NodeObject):
     """
 
     NODE_NAME = 'Base Node'
+    VERTICAL_VIEW_CLASS = NodeItemVertical
+    HORIZONTAL_VIEW_CLASS = NodeItem
 
     def __init__(self):
         view = None
         if NODE_LAYOUT_DIRECTION is NODE_LAYOUT_VERTICAL:
-            view = NodeItemVertical()
+            view = self.VERTICAL_VIEW_CLASS()
         elif NODE_LAYOUT_DIRECTION is NODE_LAYOUT_HORIZONTAL:
-            view = NodeItem()
+            view = self.HORIZONTAL_VIEW_CLASS()
         super(BaseNode, self).__init__(view)
         self._inputs = []
         self._outputs = []
