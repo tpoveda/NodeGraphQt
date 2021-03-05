@@ -145,13 +145,15 @@ class NodeGraph(QtCore.QObject):
     :emits: new session path
     """
 
+    VIEWER_CLASS = NodeViewer
+
     def __init__(self, parent=None):
         super(NodeGraph, self).__init__(parent)
         self.setObjectName('NodeGraphQt')
         self._widget = None
         self._undo_view = None
         self._model = NodeGraphModel()
-        self._viewer = NodeViewer()
+        self._viewer = self.VIEWER_CLASS()
         self._node_factory = NodeFactory()
         self._undo_stack = QtWidgets.QUndoStack(self)
         self._current_node_space = None
