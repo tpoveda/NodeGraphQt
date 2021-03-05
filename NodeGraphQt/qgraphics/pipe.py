@@ -26,7 +26,7 @@ class Pipe(QtWidgets.QGraphicsPathItem):
     Base Pipe item used for drawing node connections.
     """
 
-    def __init__(self, input_port=None, output_port=None):
+    def __init__(self, input_port=None, output_port=None, arrow_size=6.0):
         super(Pipe, self).__init__()
         self.setZValue(Z_VAL_PIPE)
         self.setAcceptHoverEvents(True)
@@ -37,7 +37,7 @@ class Pipe(QtWidgets.QGraphicsPathItem):
         self._highlight = False
         self._input_port = input_port
         self._output_port = output_port
-        size = 6.0
+        size = arrow_size
         self._arrow = QtGui.QPolygonF()
         self._arrow.append(QtCore.QPointF(-size, size))
         self._arrow.append(QtCore.QPointF(0.0, -size * 1.5))
