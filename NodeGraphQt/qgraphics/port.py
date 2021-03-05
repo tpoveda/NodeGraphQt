@@ -316,6 +316,7 @@ class CustomPortItem(PortItem):
                 'multi_connection': self.multi_connection,
                 'connected': bool(self.connected_pipes),
                 'hovered': self.hovered,
+                'lod': self.node.viewer().get_lod_value_from_zoom()
             }
             self._port_painter(painter, port_rect, port_info)
         else:

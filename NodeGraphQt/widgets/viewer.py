@@ -7,6 +7,7 @@ from .scene import NodeScene
 from .tab_search import TabSearchMenuWidget
 from .. import QtGui, QtCore, QtWidgets, QtOpenGL
 from ..base.menu import BaseMenu
+from ..base import utils
 from ..constants import (IN_PORT, OUT_PORT,
                          PIPE_LAYOUT_CURVED)
 from ..qgraphics.node_abstract import AbstractNodeItem
@@ -64,6 +65,7 @@ class NodeViewer(QtWidgets.QGraphicsView):
         self._last_size = self.size()
         self.editable = True
 
+        self._num_lods = 5
         self._pipe_layout = PIPE_LAYOUT_CURVED
         self._detached_port = None
         self._start_port = None
@@ -1053,6 +1055,23 @@ class NodeViewer(QtWidgets.QGraphicsView):
         if cent:
             self._scene_range.translate(cent - self._scene_range.center())
         self._update_scene()
+
+    def get_lod_value_from_zoom(self, zoom=None):
+        """
+        Returns the current view LOD value taking into account view scale
+
+        Args:
+
+            zoom: (float or None): scale to get LOD of. If not given, current view scale will be used instead.
+
+        Returns:
+            zoom level.
+        """
+
+        scale = zoom if zoom is not None else self.transform().m22()
+        scale_percentage = utils.get_range_percentage(ZOOM_MIN, ZOOM_MAX, scale)
+        lod = utils.lerp(self._num_lods, 1, scale_percentage)
+        return int(round(lod))
 
     def get_zoom(self):
         """

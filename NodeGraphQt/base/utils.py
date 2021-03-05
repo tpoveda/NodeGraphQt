@@ -848,3 +848,39 @@ def minimize_node_ref_count(node):
             #     node.deleteLater()
         node.deleted = True
         del node
+
+
+def get_range_percentage(min_value, max_value, value):
+    """
+    Returns the percentage value along a line from min_value to max_value that value is
+
+    Args:
+        min_value: (float): minimum value
+        max_value: (float): maximum value
+        value: (float): input value
+
+    Returns:
+        Percentage (from 0.0 to 1.0) between the two values where input value is
+    """
+
+    try:
+        return (value - min_value) / (max_value - min_value)
+    except ZeroDivisionError:
+        return 0.0
+
+
+def lerp(start, end, alpha):
+    """
+    Computes a linear interpolation between two values
+
+    Args:
+        start: start value to interpolate from
+        end:  end value to interpolate to
+        alpha: how far we want to interpolate (0=start, 1=end)
+
+    Returns:
+        float, result of the linear interpolation
+    """
+
+    # return (1 - alpha) * start + alpha * end
+    return start + alpha * (end - start)
