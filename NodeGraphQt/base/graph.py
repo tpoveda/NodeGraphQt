@@ -153,7 +153,7 @@ class NodeGraph(QtCore.QObject):
         self._widget = None
         self._undo_view = None
         self._model = NodeGraphModel()
-        self._viewer = self.VIEWER_CLASS()
+        self._viewer = self.VIEWER_CLASS(parent=parent)
         self._node_factory = NodeFactory()
         self._undo_stack = QtWidgets.QUndoStack(self)
         self._current_node_space = None
@@ -863,6 +863,7 @@ class NodeGraph(QtCore.QObject):
         Returns:
             NodeGraphQt.BaseNode: the created instance of the node.
         """
+
         if not self._editable:
             return
         NodeCls = self._node_factory.create_node_instance(node_type)

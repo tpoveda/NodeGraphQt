@@ -216,7 +216,7 @@ class AutoNode(BaseNode, QtCore.QObject):
         if name in self.model.custom_properties.keys():
             self.update_stream()
 
-    def set_port_type(self, port, data_type: str):
+    def set_port_type(self, port, data_type):
         """
         Set the data_type of the port.
 
